@@ -10,10 +10,12 @@ terraform {
         version = "~> 0.28.0"
     }
   }
-  #cloud {
-  #    organization = "chrisbeck"
-  #    workspace = "hcp-vault-train-demo"
-  #}
+  cloud {
+      organization = "chrisbeck"
+      workspaces {
+          name = "cobra-hcp-vault-train-demo"
+      }
+  }
 }
 
 #Configure AWS provider
