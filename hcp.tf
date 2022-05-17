@@ -24,9 +24,13 @@ resource "hcp_hvn_route" "vault-hvn-route" {
   hvn_route_id = "hvn-tgw-route"
   destination_cidr = aws_vpc.vault-vpc.cidr_block
   target_link = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.self_link
+
+  depends_on = [
+    aws_ec2_transit_gateway_peering_attachment_accepter.tgw-accept
+  ]
 }
 
 data "hcp_aws_transit_gateway_attachment" "hcp-tgw-attachment" {
   hvn_id = hcp_hvn.vault-hvn.hvn_id
-  transit_gateway_attachment_id = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.id
+  transit_gateway_attachment_id = "vault-train-tgw-attachment"
 }
