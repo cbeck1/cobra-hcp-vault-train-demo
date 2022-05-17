@@ -23,6 +23,7 @@ resource "hcp_hvn_route" "vault-hvn-route" {
   hvn_link = hcp_hvn.vault-hvn.self_link
   hvn_route_id = "hvn-tgw-route"
   destination_cidr = aws_vpc.vault-vpc.cidr_block
+  region = "us-east-1"
   target_link = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.self_link
 
   depends_on = [
