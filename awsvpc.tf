@@ -29,5 +29,5 @@ resource "aws_ram_resource_association" "vault-ram-rec-assoc" {
 }
 
 resource "aws_ec2_transit_gateway_peering_attachment_accepter" "tgw-accept" {
-  transit_gateway_attachment_id = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.provider_transit_gateway_attachment_id
+  transit_gateway_attachment_id = data.hcp_aws_transit_gateway_attachment.hcp-tgw-attachment.provider_transit_gateway_attachment_id
 }

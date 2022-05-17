@@ -8,15 +8,15 @@ resource "hcp_hvn" "vault-hvn" {
 }
 
 resource "hcp_aws_transit_gateway_attachment" "vault-hcp-tgwa" {
-  depends_on = [
-    aws_ram_principal_association.vault-ram-prin-assoc,
-    aws_ram_resource_association.vault-ram-rec-assoc
-  ]
-
   hvn_id = hcp_hvn.vault-hvn.hvn_id
   transit_gateway_attachment_id = "vault-train-tgw-attachment"
   transit_gateway_id = aws_ec2_transit_gateway.vault-tgw.id
   resource_share_arn = aws_ram_resource_share.vault-resource-share.arn
+
+    depends_on = [
+    aws_ram_principal_association.vault-ram-prin-assoc,
+    aws_ram_resource_association.vault-ram-rec-assoc
+  ]
 }
 
 resource "hcp_hvn_route" "vault-hvn-route" {
@@ -24,4 +24,9 @@ resource "hcp_hvn_route" "vault-hvn-route" {
   hvn_route_id = "hvn-tgw-route"
   destination_cidr = aws_vpc.vault-vpc.cidr_block
   target_link = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.self_link
+}
+
+data "hcp_aws_transit_gateway_attachment" "hcp-tgw-attachment" {
+  hvn_id = hcp_hvn.vault-hvn.hvn_id
+  transit_gateway_attachment_id = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.id
 }
