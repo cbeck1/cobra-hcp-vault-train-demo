@@ -104,12 +104,12 @@ resource "aws_route_table" "rt" {
 }
 
 resource "aws_route_table_association" "mainrt" {
-  subnet_id      = aws_subnet.main.id
+  subnet_id      = aws_subnet.vault-subnet-primary.id
   route_table_id = aws_route_table.rt.id
 }
 
 resource "aws_route_table_association" "secondaryrt" {
-  subnet_id      = aws_subnet.secondary.id
+  subnet_id      = aws_subnet.vault-subnet-secondary.id
   route_table_id = aws_route_table.rt.id
 }
 
