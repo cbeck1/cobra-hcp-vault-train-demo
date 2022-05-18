@@ -93,6 +93,11 @@ resource "aws_route_table" "rt" {
     gateway_id = aws_internet_gateway.gw.id
   }
 
+  route = {
+    cidr_block = "172.25.16.0/20"
+    transit_gateway_id = aws_ec2_transit_gateway.vault-tgw.id
+  }
+
   tags = {
     Name = "cbeck_rt"
   }
