@@ -121,7 +121,7 @@ resource "aws_ec2_transit_gateway_route" "vault-tgw-route" {
 resource "aws_route" "route" {
   route_table_id = aws_route_table.rt.id
   destination_cidr_block = hcp_hvn.vault-hvn.cidr_block
-  transit_gateway_id = aws_ec2_transit_gateway.vault-tgw
+  transit_gateway_id = aws_ec2_transit_gateway.vault-tgw.id
   depends_on = [
     aws_route_table.rt
   ]
