@@ -25,3 +25,13 @@ resource "hcp_hvn_route" "vault-hvn-route" {
   destination_cidr = aws_vpc.vault-vpc.cidr_block
   target_link = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.self_link
 }
+
+resource "hcp_vault_cluster" "vault-east" {
+  cluster_id = "east-cluster"
+  hvn_id = hcp_hvn.vault-hvn.hvn_id
+  tier = "plus_small"
+  public_endpoint = false
+  lifecycle {
+    prevent_destroy = true
+  }
+}
