@@ -3,3 +3,7 @@ variable "awsregion" {
   default = "us-east-1"
   description = "Set the AWS region for AWS VPC"
 }
+
+variable "pubkey" {
+  type = string
+}
