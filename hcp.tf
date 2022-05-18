@@ -24,6 +24,10 @@ resource "hcp_hvn_route" "vault-hvn-route" {
   hvn_route_id = "hvn-tgw-route"
   destination_cidr = aws_vpc.vault-vpc.cidr_block
   target_link = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.self_link
+
+  depends_on = [
+    aws_ec2_transit_gateway_vpc_attachment_accepter.tgw-accept
+  ]
 }
 
 resource "hcp_vault_cluster" "vault-east" {
