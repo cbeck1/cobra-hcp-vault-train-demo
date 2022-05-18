@@ -30,9 +30,9 @@ resource "hcp_hvn_route" "vault-hvn-route" {
   ]
 }
 
-resource "hcp_vault_cluster" "vault-east" {
-  cluster_id = "east-cluster"
-  hvn_id = hcp_hvn.vault-hvn.hvn_id
-  tier = "plus_small"
-  public_endpoint = false
-}
+#resource "hcp_vault_cluster" "vault-east" {
+#  cluster_id = "east-cluster"
+#  hvn_id = hcp_hvn.vault-hvn.hvn_id
+#  tier = "plus_small"
+#  public_endpoint = false
+#}

@@ -33,6 +33,12 @@ resource "aws_ec2_transit_gateway" "vault-tgw" {
     }
 }
 
+resource "aws_ec2_transit_gateway_vpc_attachment" "vault-vpc-attachment" {
+  subnet_ids         = [aws_subnet.vault-subnet-primary.id]
+  transit_gateway_id = aws_ec2_transit_gateway.vault-tgw.id
+  vpc_id             = aws_vpc.vault-vpc.id
+}
+
 resource "aws_ram_resource_share" "vault-resource-share" {
     name = "vault-train-demo-resource-share"
     allow_external_principals = true
@@ -91,6 +97,11 @@ resource "aws_route_table" "rt" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.gw.id
+  }
+
+  route = {
+    cidr_block = hcp_hvn.vault-hvn.cidr_block
+    transit_gateway_id = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.provider_transit_gateway_attachment_id
   }
 
   tags = {
