@@ -31,7 +31,4 @@ resource "hcp_vault_cluster" "vault-east" {
   hvn_id = hcp_hvn.vault-hvn.hvn_id
   tier = "plus_small"
   public_endpoint = false
-  lifecycle {
-    prevent_destroy = true
-  }
 }
