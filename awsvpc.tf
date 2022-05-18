@@ -93,11 +93,6 @@ resource "aws_route_table" "rt" {
     gateway_id = aws_internet_gateway.gw.id
   }
 
-  route {
-    cidr_block = "172.25.16.0/20"
-    transit_gateway_id = aws_ec2_transit_gateway.vault-tgw.id
-  }
-
   tags = {
     Name = "cbeck_rt"
   }
@@ -121,4 +116,13 @@ resource "aws_ec2_transit_gateway_route" "vault-tgw-route" {
   destination_cidr_block         = hcp_hvn.vault-hvn.cidr_block
   transit_gateway_attachment_id  = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.provider_transit_gateway_attachment_id
   transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.vault-tgw-route-table.id
+}
+
+resource "aws_route" "route" {
+  route_table_id = aws_route_table.rt.id
+  destination_cidr_block = hcp_hvn.vault-hvn.cidr_block
+  transit_gateway_id = aws_ec2_transit_gateway.vault-tgw
+  depends_on = [
+    aws_route_table.rt
+  ]
 }
