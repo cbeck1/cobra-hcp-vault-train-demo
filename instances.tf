@@ -1,7 +1,7 @@
 resource "aws_instance" "vaultsrv01" {
-  ami                         = var.ami_id
-  instance_type               = var.instancestype
-  subnet_id                   = aws_subnet.main.id
+  ami                         = "ami-0022f774911c1d690"
+  instance_type               = "t2.micro"
+  subnet_id                   = aws_subnet.vault-subnet-primary
   vpc_security_group_ids      = [aws_security_group.vaultsg.id]
   key_name                    = aws_key_pair.keys.key_name
   associate_public_ip_address = true
