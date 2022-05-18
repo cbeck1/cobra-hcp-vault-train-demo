@@ -117,12 +117,3 @@ resource "aws_ec2_transit_gateway_route" "vault-tgw-route" {
   transit_gateway_attachment_id  = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.provider_transit_gateway_attachment_id
   transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.vault-tgw-route-table.id
 }
-
-resource "aws_route" "route" {
-  route_table_id = aws_route_table.rt.id
-  destination_cidr_block = "172.25.16.0/20"
-  transit_gateway_id = "tgw-044c85631f512af25"
-  depends_on = [
-    aws_route_table.rt
-  ]
-}
