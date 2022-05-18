@@ -104,6 +104,11 @@ resource "aws_route_table" "rt" {
   }
 }
 
+resource "aws_main_route_table_association" "a" {
+  vpc_id         = aws_vpc.vault-vpc.id
+  route_table_id = aws_route_table.rt.id
+}
+
 resource "aws_route" "vpcroute" {
   destination_cidr_block = hcp_hvn.vault-hvn.cidr_block
   transit_gateway_id = aws_ec2_transit_gateway.vault-tgw.id
