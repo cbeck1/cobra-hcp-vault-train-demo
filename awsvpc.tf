@@ -99,14 +99,19 @@ resource "aws_route_table" "rt" {
     gateway_id = aws_internet_gateway.gw.id
   }
 
-  route {
-    cidr_block = hcp_hvn.vault-hvn.cidr_block
-    transit_gateway_id = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.provider_transit_gateway_attachment_id
-  }
-
   tags = {
     Name = "cbeck_rt"
   }
+}
+
+resource "aws_route" "vpcroute" {
+  cidr_block = hcp_hvn.vault-hvn.cidr_block
+  transit_gateway_id = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.provider_transit_gateway_attachment_id
+  route_table_id = aws_route_table.rt.id
+
+  depends_on = [
+    aws_ec2_transit_gateway_vpc_attachment.vault-vpc-attachment
+  ]
 }
 
 resource "aws_route_table_association" "mainrt" {
@@ -127,4 +132,8 @@ resource "aws_ec2_transit_gateway_route" "vault-tgw-route" {
   destination_cidr_block         = hcp_hvn.vault-hvn.cidr_block
   transit_gateway_attachment_id  = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.provider_transit_gateway_attachment_id
   transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.vault-tgw-route-table.id
+
+  depends_on = [
+    aws_ec2_transit_gateway_vpc_attachment_accepter.tgw-accept
+  ]
 }
