@@ -95,7 +95,7 @@ resource "aws_route_table" "rt" {
 
   route {
     cidr_block = hcp_hvn.vault-hvn.cidr_block
-    transit_gateway_id = aws_ec2_transit_gateway.vault-tgw.id
+    transit_gateway_id = hcp_aws_transit_gateway_attachment.vault-hcp-tgwa.provider_transit_gateway_attachment_id
   }
 
   tags = {
