@@ -7,7 +7,7 @@ terraform {
     }
     hcp = {
         source = "hashicorp/hcp"
-        version = "~> 0.28.0"
+        version = "~> 0.29.0"
     }
   }
   cloud {
@@ -20,7 +20,13 @@ terraform {
 
 #Configure AWS provider
 provider "aws" {
-    region = "us-east-1"
+    region = var.primaryawsregion
+    alias = "primaryregion"
+}
+
+provider "aws" {
+  region = var.secondaryawsregion
+  alias = "secondaryregion"
 }
 
 #Configure HCP provider
