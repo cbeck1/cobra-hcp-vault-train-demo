@@ -74,14 +74,6 @@ resource "aws_security_group" "vaultsg" {
     cidr_blocks = [aws_vpc.vault-vpc.cidr_block]
   }
 
-  ingress {
-    description = "All traffic"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["173.48.20.163/32"]
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
